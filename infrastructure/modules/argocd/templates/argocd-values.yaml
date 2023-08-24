@@ -1,14 +1,14 @@
 redis-ha:
-  enabled: true
+  enabled: false
 
 controller:
   replicas: 1
 
 server:
-  replicas: 2
+  replicas: 1
 
 repoServer:
-  replicas: 2
+  replicas: 1
 
 applicationSet:
-  replicaCount: 2
+  replicaCount: 1

@@ -6,5 +6,9 @@
         "cmd": "terragrunt hclfmt --terragrunt-hclfmt-file ${file}"
       }
     ]
+  },
+  "conventionalCommits.scopes": ["boilerblate"],
+  "files.associations": {
+    "**/argo-apps-chart/**/*.yaml": "helm"
   }
 }
