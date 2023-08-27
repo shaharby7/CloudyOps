@@ -7,8 +7,8 @@
       }
     ]
   },
-  "conventionalCommits.scopes": ["boilerblate"],
+  "conventionalCommits.scopes": ["boilerblate", "argocd"],
   "files.associations": {
-    "**/argo-apps-chart/**/*.yaml": "helm"
+    "**/applications/**/*.yaml": "helm"
   }
 }
