@@ -2,17 +2,17 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: fakeprovider
-  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: application-launcher
   source:
-    chart: fakeprovider
-    repoURL: git@github.com:shaharby7/CloudyOps
+    repoURL: https://github.com/shaharby7/CloudyOps.git
     revision: main
-    path: applications/charts
+    targetRevision: main
+    path: applications/charts/fakeprovider
     helm:
       releaseName: fakeprovider
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: argo-cd
-
+    namespace: runspace

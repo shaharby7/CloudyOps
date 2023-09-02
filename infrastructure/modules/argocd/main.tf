@@ -19,11 +19,19 @@ resource "helm_release" "argo-cd" {
   ]
 }
 
+resource "kubernetes_namespace" "runspace" {
+  metadata {
+    name = "runspace"
+  }
+}
+
+
 resource "helm_release" "applicatoins-launcher" {
-  depends_on = [helm_release.argo-cd]
+  depends_on = [helm_release.argo-cd, kubernetes_namespace.runspace]
   count      = 1
   name       = "applications-launcher"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/applications-launcher"
   wait       = false
+  version = "0.1.14"
 }
