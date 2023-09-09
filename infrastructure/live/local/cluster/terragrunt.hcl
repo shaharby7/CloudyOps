@@ -14,5 +14,5 @@ include {
 }
 
 inputs = {
-  cluster_name = "shahar"
+  cluster_name = "fakeprovider"
 }

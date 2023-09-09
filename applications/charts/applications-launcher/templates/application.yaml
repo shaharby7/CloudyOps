@@ -10,9 +10,11 @@ spec:
     repoURL: https://github.com/shaharby7/CloudyOps.git
     revision: main
     targetRevision: main
-    path: applications/charts/fakeprovider
+    path: applications/charts/runspace-application
     helm:
       releaseName: fakeprovider
+      valueFiels:
+        - applications/values/fakeprovider/values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: runspace

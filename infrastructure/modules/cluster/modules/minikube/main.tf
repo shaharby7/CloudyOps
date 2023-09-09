@@ -3,4 +3,6 @@ resource "minikube_cluster" "this" {
   cluster_name       = var.cluster_name
   nodes              = 1
   kubernetes_version = var.kubernetes_version
+  memory             = 8192
+  cpus               = 4
 }

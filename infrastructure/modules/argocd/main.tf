@@ -33,5 +33,5 @@ resource "helm_release" "applicatoins-launcher" {
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/applications-launcher"
   wait       = false
-  version    = "0.1.14"
+  version    = "0.1.15"
 }

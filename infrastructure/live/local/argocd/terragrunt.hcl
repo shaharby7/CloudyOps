@@ -3,7 +3,6 @@ locals {
   global_vars      = read_terragrunt_config(find_in_parent_folders("globals.hcl"))
   stage            = local.environment_vars.locals.environment
   charts_path      = local.global_vars.locals.charts_path
-  a                = "a"
 }
 
 terraform {
