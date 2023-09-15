@@ -1,3 +1,4 @@
+{{- range .Values.sources}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,16 +6,10 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: application-launcher
+  project: runspace
   source:
-    repoURL: https://github.com/shaharby7/CloudyOps.git
-    revision: main
-    targetRevision: main
-    path: applications/charts/runspace-application
-    helm:
-      releaseName: fakeprovider
-      valueFiels:
-        - applications/values/fakeprovider/values.yaml
+    {{- toYaml . | nindent 4 }}
   destination:
     server: "https://kubernetes.default.svc"
     namespace: runspace
+{{- end}}
