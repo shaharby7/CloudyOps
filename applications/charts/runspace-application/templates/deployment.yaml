@@ -29,9 +29,8 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          {{- if .Values.env}}
-            {{.Values.env}}
-          {{- end }}
+          env:
+            {{- toYaml .Values.env | nindent 12}}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -40,13 +39,13 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
+           livenessProbe:
             httpGet:
-              path: /
+              path: /liveness-probe
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /readiness-probe
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
