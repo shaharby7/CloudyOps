@@ -14,7 +14,7 @@ spec:
     helm:
       releaseName: fakeprovider
       valueFiels:
-        - ../..//values.yaml
+        - applications/values/fakeprovider/values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: runspace
