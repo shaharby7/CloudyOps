@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: application-manager
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: application-manager
+  source:
+    repoURL: https://github.com/shaharby7/CloudyOps.git
+    revision: main
+    targetRevision: main
+    path: applications/charts/applications-list
+    helm:
+      releaseName: application-manager
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: argocd
