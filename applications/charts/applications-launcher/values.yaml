@@ -1,5 +1,6 @@
 sources:
-  - repoURL: https://github.com/shaharby7/CloudyOps.git
+  fakeprovider:
+    repoURL: https://github.com/shaharby7/CloudyOps.git
     revision: main
     targetRevision: main
     path: applications/charts/runspace-application

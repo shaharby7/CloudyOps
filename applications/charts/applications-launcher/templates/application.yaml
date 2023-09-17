@@ -1,14 +1,14 @@
-{{- range .Values.sources}}
+{{- range $name, $values:= .Values.sources}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fakeprovider
+  name: {{ $name }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: runspace
   source:
-    {{- toYaml . | nindent 4 }}
+    {{- $values | toYaml | nindent 4}}
   destination:
     server: "https://kubernetes.default.svc"
     namespace: runspace

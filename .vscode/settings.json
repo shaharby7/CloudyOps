@@ -10,5 +10,8 @@
   "conventionalCommits.scopes": ["boilerblate", "argocd"],
   "files.associations": {
     "**/applications/**/*.yaml": "helm"
-  }
+  },
+  "cSpell.words": [
+    "fakeprovider"
+  ]
 }
