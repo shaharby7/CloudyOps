@@ -7,4 +7,4 @@ sources:
     helm:
       releaseName: fakeprovider
       valueFiles:
-        - applications/values/fakeprovider/values.yaml
+        - ../../values/fakeprovider/values.yaml
