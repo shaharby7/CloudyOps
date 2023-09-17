@@ -1,10 +1,10 @@
 sources:
   fakeprovider:
-    repoURL: https://github.com/shaharby7/CloudyOps.git
+    repoURL: https://github.com/shaharby7/CloudyOps.git/applications
     revision: main
     targetRevision: main
-    path: applications/charts/runspace-application
+    path: charts/runspace-application
     helm:
       releaseName: fakeprovider
       valueFiles:
-        - applications/values/fakeprovider/values.yaml
+        - values/fakeprovider/values.yaml
