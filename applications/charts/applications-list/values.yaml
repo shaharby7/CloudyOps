@@ -1,4 +1,12 @@
 sources:
+  kubevirt:
+    repoURL: "https://github.com/startxfr/helm-repository.git"
+    path: charts/cluster-kubevirt/
+    targetRevision: 12.0.11
+    revision: master
+    helm:
+      releaseName: kubevirt
+
   fakeprovider:
     repoURL: https://github.com/shaharby7/CloudyOps.git
     revision: main
