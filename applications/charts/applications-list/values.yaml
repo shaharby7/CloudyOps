@@ -2,7 +2,7 @@ sources:
   kubevirt:
     repoURL: "https://github.com/startxfr/helm-repository.git"
     path: charts/cluster-kubevirt/
-    targetRevision: mater
+    targetRevision: master
     revision: master
     helm:
       releaseName: kubevirt
