@@ -5,4 +5,9 @@ resource "minikube_cluster" "this" {
   kubernetes_version = var.kubernetes_version
   memory             = 8192
   cpus               = 4
+  container_runtime  = "containerd"
+  addons = flatten([
+    "default-storageclass",
+    "storage-provisioner",
+  var.enable_kubevirt == true ? ["kubevirt"] : []])
 }

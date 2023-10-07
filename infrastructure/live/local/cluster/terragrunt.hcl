@@ -15,4 +15,5 @@ include {
 
 inputs = {
   cluster_name = "fakeprovider"
+  // enable_kubevirt = true
 }

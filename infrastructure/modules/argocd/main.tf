@@ -33,5 +33,5 @@ resource "helm_release" "application_manager" {
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/application-manager"
   wait       = false
-  version    = "0.1.0"
+  version    = "0.1.1"
 }
