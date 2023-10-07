@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "argocd" {
     }
   }
 }
-
+  
 
 resource "helm_release" "argo-cd" {
   name       = "argo-cd"
