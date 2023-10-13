@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "argocd" {
     }
   }
 }
-  
+
 
 resource "helm_release" "argo-cd" {
   name       = "argo-cd"
@@ -32,6 +32,6 @@ resource "helm_release" "application_manager" {
   name       = "application-manager"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/application-manager"
-  wait       = false
+  wait       = true
   version    = "0.1.2"
 }
