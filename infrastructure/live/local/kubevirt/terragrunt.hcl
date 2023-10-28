@@ -25,6 +25,13 @@ dependency "cluster" {
   }
 }
 
+dependency "argocd" {
+  config_path                             = "${get_terragrunt_dir()}/../argocd"
+  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs                            = {}
+}
+
+
 
 inputs = {
   stage       = local.stage

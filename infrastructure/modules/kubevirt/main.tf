@@ -1,3 +1,10 @@
+resource "kubernetes_namespace" "vmis" {
+  metadata {
+    name = "vmis"
+  }
+}
+
+
 resource "helm_release" "kubevirt" {
   count   = 1
   name    = "kubevirt"
@@ -12,17 +19,17 @@ resource "null_resource" "wait_for_kubevirt" {
 
   provisioner "local-exec" {
     command = <<-EOC
- kubectl -n kubevirt wait kubevirt kubevirt --for condition=Available --timeout=300s
+ kubectl -n kubevirt wait kubevirt kubevirt --for condition=Available --timeout=900s
  EOC
   }
 }
 
 
-resource "helm_release" "datavolumes" {
+resource "helm_release" "cloud_init_user_data" {
   depends_on = [null_resource.wait_for_kubevirt]
   count      = 1
-  name       = "datavolumes"
-  chart      = "${var.charts_path}/datavolumes"
+  name       = "cloud-init-user-data"
+  chart      = "${var.charts_path}/cloud-init-user-data"
   wait       = true
-  version    = "0.1.3"
+  version    = "0.1.8"
 }
