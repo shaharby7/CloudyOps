@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: createvm-sensor
+  namespace: argo-events
+spec:
+  template:
+    serviceAccountName: argo-events-events-webhook #?
+  dependencies:
+    - name: webhook
+      eventSourceName: fakeprovider-argocd-webhook
+      eventName: createvm
+  triggers:
+    - template:
+        name: webhook-pod-trigger
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: v1
+              kind: Pod
+              metadata:
+                generateName: hello-world-
+              spec:
+                containers:
+                  - name: hello-container
+                    args:
+                      - "hello-world"
+                    command:
+                      - cowsay
+                    image: "docker/whalesay:latest"
+          parameters:
+            - src:
+                dependencyName: test-dep
+                dataKey: body
+              dest: spec.containers.0.args.0

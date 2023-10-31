@@ -18,3 +18,8 @@ variable "cluster_ca_certificate" {
 variable "charts_path" {
   type    = string
 }
+
+variable "argocd_events" {
+  type = bool
+  default = false
+}

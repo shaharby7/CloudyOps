@@ -35,3 +35,20 @@ resource "helm_release" "application_manager" {
   wait       = true
   version    = "0.1.2"
 }
+
+resource "kubernetes_namespace" "argo-events" {
+  depends_on = [helm_release.argo-cd]
+  metadata {
+    name = "argo-events"
+  }
+}
+
+resource "helm_release" "argo-events" {
+  depends_on = [ kubernetes_namespace.argo-events ]
+  count      = var.argocd_events ? 1 : 0
+  name       = "argo-events"
+  chart      = "argo-events"
+  repository = "https://argoproj.github.io/argo-helm"
+  version    = "2.4.1"
+  namespace  = kubernetes_namespace.argo-events.metadata.0.name
+}

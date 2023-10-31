@@ -31,5 +31,5 @@ resource "helm_release" "cloud_init_user_data" {
   name       = "cloud-init-user-data"
   chart      = "${var.charts_path}/cloud-init-user-data"
   wait       = true
-  version    = "0.1.8"
+  version    = "0.1.15"
 }

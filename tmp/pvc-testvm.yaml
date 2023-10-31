@@ -1,9 +1,24 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: testvm
+  name: pvc-testvm
   namespace: vmis
 spec:
+  dataVolumeTemplates:
+    - metadata:
+        creationTimestamp: null
+        name: pvc-testvm-dv
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 30Gi
+          # storageClassName: default
+        source:
+          registry:
+            url: docker://quay.io/containerdisks/ubuntu:22.04
   running: true
   template:
     spec:
@@ -28,8 +43,8 @@ spec:
         - name: default
           pod: {} # Stock pod network
       volumes:
-        - containerDisk:
-            image: quay.io/containerdisks/ubuntu:22.04
+        - dataVolume:
+            name: pvc-testvm-dv
           name: containerdisk
         - cloudInitConfigDrive:
             secretRef:

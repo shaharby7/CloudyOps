@@ -27,9 +27,9 @@ dependency "cluster" {
 
 
 inputs = {
-  stage       = local.stage
-  charts_path = local.charts_path
-
+  stage                  = local.stage
+  charts_path            = local.charts_path
+  argocd_events          = true
   host                   = dependency.cluster.outputs.host
   client_key             = dependency.cluster.outputs.client_key
   client_certificate     = dependency.cluster.outputs.client_certificate
