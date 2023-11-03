@@ -1,0 +1,5 @@
+dependencies:
+  - name: "argo-workflows"
+    version: "0.37.0"
+    repository: "https://argoproj.github.io/argo-helm"
+    alias: "argo-workflows-original"

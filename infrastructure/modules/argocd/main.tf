@@ -67,8 +67,8 @@ resource "helm_release" "argo-workflows" {
   count      = var.argo_workflows ? 1 : 0
   name       = "argo-workflows"
   chart      = "argo-workflows"
-  repository = "https://argoproj.github.io/argo-helm"
-  version    = "0.37.0"
+  repository = "https://github.com/shaharby7/CloudyOps.git/applications/charts"
+  version    = "0.1.0"
   namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
 }
 
