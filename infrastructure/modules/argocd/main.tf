@@ -51,6 +51,7 @@ resource "helm_release" "argo-events" {
   chart      = "argo-events"
   repository = "https://argoproj.github.io/argo-helm"
   version    = "2.4.1"
+  wait       = true
   namespace  = kubernetes_namespace.argo-events.metadata.0.name
 }
 
@@ -68,5 +69,6 @@ resource "helm_release" "argo-workflows" {
   name       = "argo-workflows"
   chart      = "${var.charts_path}/argo-workflows"
   version    = "0.1.0"
+  wait       = true
   namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
 }

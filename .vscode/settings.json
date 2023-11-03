@@ -12,6 +12,7 @@
     "**/applications/**/*.yaml": "helm"
   },
   "cSpell.words": [
-    "fakeprovider"
+    "fakeprovider",
+    "runspace"
   ]
 }
