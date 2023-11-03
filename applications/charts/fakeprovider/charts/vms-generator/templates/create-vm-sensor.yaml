@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: create-vm-sensor
+  namespace: runspace
+spec:
+  template:
+    serviceAccountName: argo-events-events-webhook #?
+  dependencies:
+    - name: webhook-call
+      eventSourceName: vms-generator-webhook
+      eventName: create-vm
+  triggers:
+    - template:
+        name: create-vm
+         argoWorkflow:
+            operation: submit
+            source:
+              resource:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Workflow
+                metadata:
+                  generateName: create-vm-
+                spec:
+                  workflowTemplateRef:
+                    name: create-vm-worflow-template

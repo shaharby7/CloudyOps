@@ -1,18 +1,10 @@
 sources:
-  # kubevirt:
-  #   repoURL: "https://github.com/startxfr/helm-repository.git"
-  #   path: charts/cluster-kubevirt/
-  #   targetRevision: master
-  #   revision: master
-  #   helm:
-  #     releaseName: kubevirt
-
   fakeprovider:
     repoURL: https://github.com/shaharby7/CloudyOps.git
     revision: main
     targetRevision: main
-    path: applications/charts/runspace-application
+    path: applications/charts/fakeprovider
     helm:
-      releaseName: fakeprovider 
+      releaseName: fakeprovider
       valueFiles:
         - ../../values/fakeprovider/values.yaml

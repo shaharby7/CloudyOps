@@ -16,10 +16,15 @@ variable "cluster_ca_certificate" {
 }
 
 variable "charts_path" {
-  type    = string
+  type = string
 }
 
-variable "argocd_events" {
-  type = bool
+variable "argo_events" {
+  type    = bool
+  default = false
+}
+
+variable "argo_workflows" {
+  type    = bool
   default = false
 }

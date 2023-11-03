@@ -1,0 +1,96 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: create-vm-worflow-template
+  namespace: runspace
+spec:
+  entrypoint: create-vm
+  templates:
+    - name: create-vm
+      steps:
+        - - name: configure-cloud-init
+            template: configure-cloud-init
+            arguments:
+              parameters:
+                # - name: message
+                #   value: "hello1"
+        - - name: launch-vm
+            template: launch-vm
+            arguments:
+              parameters:
+                # - name: message
+                #   value: "hello2a"
+
+    - name: configure-cloud-init
+      resource:
+        action: create
+        successCondition: status.succeeded > 0
+        failureCondition: status.failed > 1
+        manifest: |
+          apiVersion: v1
+          kind: Secret
+          metadata:
+              name: kube-mast-user-data
+              namespace: vmis
+          type: Opaque
+          data:
+              userdata: {{ .Files.Get "data/kube-mast-user-data.yaml" | b64enc }}
+
+    - name: create-vm
+      resource:
+        action: create
+        successCondition: status.succeeded > 0
+        failureCondition: status.failed > 1
+        manifest: |
+          apiVersion: kubevirt.io/v1
+          kind: VirtualMachine
+          metadata:
+              name: pvc-testvm
+              namespace: vmis
+          spec:
+          dataVolumeTemplates:
+              - metadata:
+                  creationTimestamp: null
+                  name: pvc-testvm-dv
+              spec:
+                  pvc:
+                  accessModes:
+                      - ReadWriteOnce
+                  resources:
+                      requests:
+                      storage: 30Gi
+                  # storageClassName: default
+                  source:
+                  registry:
+                      url: docker://quay.io/containerdisks/ubuntu:22.04
+          running: true
+          template:
+              spec:
+              domain:
+                  devices:
+                  interfaces:
+                      - name: default
+                      bridge: {}
+                  disks:
+                      - disk:
+                          bus: virtio
+                      name: containerdisk
+                      - disk:
+                          bus: virtio
+                      name: cloudinitdisk
+                  rng: {}
+                  resources:
+                  requests:
+                      memory: 1024M
+              terminationGracePeriodSeconds: 0
+              networks:
+                  - name: default
+                  pod: {} # Stock pod network
+              volumes:
+                  - dataVolume:
+                      name: pvc-testvm-dv
+                  name: containerdisk
+                  - cloudInitConfigDrive:
+                      secretRef:
+                      name: kube-mast-user-data
+                  name: cloudinitdisk
