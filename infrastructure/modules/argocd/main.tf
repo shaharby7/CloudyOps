@@ -26,17 +26,6 @@ resource "kubernetes_namespace" "runspace" {
   }
 }
 
-
-resource "helm_release" "application_manager" {
-  depends_on = [helm_release.argo-cd, kubernetes_namespace.runspace]
-  count      = 1
-  name       = "application-manager"
-  namespace  = kubernetes_namespace.argocd.metadata.0.name
-  chart      = "${var.charts_path}/application-manager"
-  wait       = true
-  version    = "0.1.4"
-}
-
 resource "kubernetes_namespace" "argo-events" {
   depends_on = [helm_release.argo-cd]
   metadata {
@@ -82,4 +71,14 @@ resource "helm_release" "argo-workflows" {
   version    = "0.37.1"
   wait       = true
   namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
+}
+
+resource "helm_release" "application_manager" {
+  depends_on = [helm_release.argo-cd, helm_release.argo-events, helm_release.argo-workflows]
+  count      = 1
+  name       = "application-manager"
+  namespace  = kubernetes_namespace.argocd.metadata.0.name
+  chart      = "${var.charts_path}/application-manager"
+  wait       = true
+  version    = "0.1.4"
 }
