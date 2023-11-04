@@ -25,6 +25,12 @@ dependency "cluster" {
   }
 }
 
+dependency "kubevirt" {
+  config_path                             = "${get_terragrunt_dir()}/../kubevirt"
+  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs                            = {}
+}
+
 
 inputs = {
   stage                  = local.stage
