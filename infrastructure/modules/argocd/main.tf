@@ -79,7 +79,7 @@ resource "helm_release" "eventbus" {
   count      = var.argo_workflows ? 1 : 0
   name       = "eventbus"
   chart      = "${var.charts_path}/eventbus"
-  version    = "0.1.0"
+  version    = "0.1.1"
   wait       = true
-  namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
+  namespace  = kubernetes_namespace.runspace.metadata.0.name
 }
