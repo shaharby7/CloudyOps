@@ -26,5 +26,5 @@ appVersion: "1.16.0"
 dependencies:
   - name: "runspace-application"
     version: "0.1.2"
-    repository: "https://github.com/shaharby7/CloudyOps.git/applications/charts"
+    repository: "https://shaharby7.github.io/CloudyOps/applications/charts"
     alias: "fakeprovider-api"
