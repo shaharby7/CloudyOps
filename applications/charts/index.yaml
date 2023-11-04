@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  runspace-application:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-11-04T03:15:09.067756196+02:00"
+    description: A Helm chart for Kubernetes
+    digest: fc78434c51571bb3da256f20deb1df7e2e0a5f158702671a087ffc0b745b4a23
+    name: runspace-application
+    type: application
+    urls:
+    - runspace-application-0.1.2.tgz
+    version: 0.1.2
+generated: "2023-11-04T03:15:09.067167444+02:00"
