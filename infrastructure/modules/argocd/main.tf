@@ -67,7 +67,18 @@ resource "helm_release" "argo-workflows" {
   depends_on = [kubernetes_namespace.argo-workflows]
   count      = var.argo_workflows ? 1 : 0
   name       = "argo-workflows"
-  chart      = "${var.charts_path}/argo-workflows"
+  chart      = "argo-workflows"
+  repository = "https://argoproj.github.io/argo-helm"
+  version    = "0.37.1"
+  wait       = true
+  namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
+}
+
+resource "helm_release" "eventbus" {
+  depends_on = [helm_release.argo-workflows]
+  count      = var.argo_workflows ? 1 : 0
+  name       = "eventbus"
+  chart      = "${var.charts_path}/eventbus"
   version    = "0.1.0"
   wait       = true
   namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
