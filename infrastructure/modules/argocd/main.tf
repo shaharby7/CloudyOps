@@ -34,7 +34,7 @@ resource "helm_release" "application_manager" {
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/application-manager"
   wait       = true
-  version    = "0.1.3"
+  version    = "0.1.4"
 }
 
 resource "kubernetes_namespace" "argo-events" {
@@ -54,6 +54,16 @@ resource "helm_release" "argo-events" {
   wait       = true
   namespace  = kubernetes_namespace.argo-events.metadata.0.name
 }
+resource "helm_release" "eventbus" {
+  depends_on = [helm_release.argo-workflows]
+  count      = var.argo_workflows ? 1 : 0
+  name       = "eventbus"
+  chart      = "${var.charts_path}/eventbus"
+  version    = "0.1.4"
+  wait       = true
+  namespace  = kubernetes_namespace.argo-events.metadata.0.name
+}
+
 
 
 resource "kubernetes_namespace" "argo-workflows" {
@@ -72,14 +82,4 @@ resource "helm_release" "argo-workflows" {
   version    = "0.37.1"
   wait       = true
   namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
-}
-
-resource "helm_release" "eventbus" {
-  depends_on = [helm_release.argo-workflows]
-  count      = var.argo_workflows ? 1 : 0
-  name       = "eventbus"
-  chart      = "${var.charts_path}/eventbus"
-  version    = "0.1.3"
-  wait       = true
-  namespace  = kubernetes_namespace.runspace.metadata.0.name
 }

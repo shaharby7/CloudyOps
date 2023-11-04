@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
   name: create-vm-sensor
-  namespace: runspace
+  namespace: argo-events
 spec:
   template:
     serviceAccountName: argo-events-events-webhook #?
