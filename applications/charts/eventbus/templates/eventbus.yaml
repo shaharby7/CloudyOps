@@ -1,7 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: EventBus
 metadata:
-  name: runspace
+  name: defualt
+  namespace: runspace
 spec:
   nats:
     native:
