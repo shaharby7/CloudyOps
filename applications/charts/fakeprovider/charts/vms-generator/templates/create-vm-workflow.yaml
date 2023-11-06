@@ -36,7 +36,7 @@ spec:
           data:
               userdata: {{ .Files.Get "data/kube-mast-user-data.yaml" | b64enc }}
 
-    - name: create-vm
+    - name: launch-vm
       resource:
         action: create
         successCondition: status.succeeded > 0
