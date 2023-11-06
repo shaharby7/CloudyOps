@@ -1,0 +1,6 @@
+dependencies:
+- name: runspace-application
+  repository: https://shaharby7.github.io/CloudyOps/applications/charts
+  version: 0.1.2
+digest: sha256:e627010bca6715666d666620f7ab9c959d4f0fa1498d031dbc4ea26a97d9de49
+generated: "2023-11-06T23:26:18.835667554+02:00"
