@@ -37,20 +37,21 @@ resource "helm_release" "argo-events" {
   depends_on = [kubernetes_namespace.argo-events]
   count      = var.argo_events ? 1 : 0
   name       = "argo-events"
+  namespace  = kubernetes_namespace.argo-events.metadata.0.name
   chart      = "argo-events"
   repository = "https://argoproj.github.io/argo-helm"
   version    = "2.4.1"
   wait       = true
-  namespace  = kubernetes_namespace.argo-events.metadata.0.name
+  timeout    = 1500
 }
 resource "helm_release" "eventbus" {
-  depends_on = [helm_release.argo-workflows]
+  depends_on = [helm_release.argo-events]
   count      = var.argo_workflows ? 1 : 0
   name       = "eventbus"
-  chart      = "${var.charts_path}/eventbus"
-  version    = "0.1.4"
-  wait       = true
   namespace  = kubernetes_namespace.argo-events.metadata.0.name
+  chart      = "${var.charts_path}/eventbus"
+  version    = "0.1.5"
+  wait       = true
 }
 
 
@@ -66,15 +67,19 @@ resource "helm_release" "argo-workflows" {
   depends_on = [kubernetes_namespace.argo-workflows]
   count      = var.argo_workflows ? 1 : 0
   name       = "argo-workflows"
+  namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
   chart      = "argo-workflows"
   repository = "https://argoproj.github.io/argo-helm"
   version    = "0.37.1"
   wait       = true
-  namespace  = kubernetes_namespace.argo-workflows.metadata.0.name
+  timeout    = 1500
+  values = [
+    templatefile("${path.module}/templates/argo-workflows-values.yaml", {})
+  ]
 }
 
 resource "helm_release" "application_manager" {
-  depends_on = [helm_release.argo-cd, helm_release.argo-events, helm_release.argo-workflows]
+  depends_on = [helm_release.argo-cd, helm_release.argo-events, helm_release.argo-workflows, helm_release.eventbus]
   count      = 1
   name       = "application-manager"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
