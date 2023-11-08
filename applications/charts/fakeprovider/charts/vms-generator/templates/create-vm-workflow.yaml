@@ -4,6 +4,7 @@ metadata:
   name: create-vm-worflow-template
   namespace: runspace
 spec:
+  serviceAccountName: operate-workflow-sa
   entrypoint: create-vm
   templates:
     - name: create-vm
