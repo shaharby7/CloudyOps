@@ -44,17 +44,6 @@ resource "helm_release" "argo-events" {
   wait       = true
   timeout    = 1500
 }
-resource "helm_release" "eventbus" {
-  depends_on = [helm_release.argo-events]
-  count      = var.argo_workflows ? 1 : 0
-  name       = "eventbus"
-  namespace  = kubernetes_namespace.argo-events.metadata.0.name
-  chart      = "${var.charts_path}/eventbus"
-  version    = "0.1.5"
-  wait       = true
-}
-
-
 
 resource "kubernetes_namespace" "argo-workflows" {
   depends_on = [helm_release.argo-cd]
@@ -79,11 +68,11 @@ resource "helm_release" "argo-workflows" {
 }
 
 resource "helm_release" "application_manager" {
-  depends_on = [helm_release.argo-cd, helm_release.argo-events, helm_release.argo-workflows, helm_release.eventbus]
+  depends_on = [helm_release.argo-cd, helm_release.argo-events, helm_release.argo-workflows]
   count      = 1
   name       = "application-manager"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/application-manager"
   wait       = true
-  version    = "0.1.4"
+  version    = "0.1.6"
 }

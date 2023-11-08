@@ -15,10 +15,6 @@ spec:
   destinations:
     - namespace: runspace
       server: https://kubernetes.default.svc
-    - namespace: argo-events
-      server: https://kubernetes.default.svc
-    - namespace: argo-events
-      server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
     - group: ""

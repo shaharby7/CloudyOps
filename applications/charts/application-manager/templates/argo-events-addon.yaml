@@ -1,8 +1,9 @@
+{{ if .Values.addons.events.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: EventBus
 metadata:
   name: default
-  namespace: argo-events
+  namespace: runspace
 spec:
   nats:
     native:
@@ -21,3 +22,4 @@ spec:
       storageClassName: standard
       accessMode: ReadWriteOnce
       volumeSize: 10Gi
+{{ end }}

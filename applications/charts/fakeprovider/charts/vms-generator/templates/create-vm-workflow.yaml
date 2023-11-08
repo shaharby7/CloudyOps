@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
   name: create-vm-worflow-template
-  namespace: argo-events
+  namespace: runspace
 spec:
   entrypoint: create-vm
   templates:
@@ -31,7 +31,7 @@ spec:
           kind: Secret
           metadata:
               name: kube-mast-user-data
-              namespace: vmis
+              namespace: runspace
           type: Opaque
           data:
               userdata: {{ .Files.Get "data/kube-mast-user-data.yaml" | b64enc }}

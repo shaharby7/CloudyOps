@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
   name: create-vm-sensor
-  namespace: argo-events
+  namespace: runspace
 spec:
   template:
     serviceAccountName: operate-workflow-sa
