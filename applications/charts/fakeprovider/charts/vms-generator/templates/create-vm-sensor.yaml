@@ -5,7 +5,7 @@ metadata:
   namespace: runspace
 spec:
   template:
-    serviceAccountName: runspace-workflow-sa
+    serviceAccountName: operate-workflow-sa
   dependencies:
     - name: webhook-call
       eventSourceName: vms-generator-webhook
