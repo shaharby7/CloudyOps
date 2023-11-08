@@ -25,8 +25,6 @@ spec:
     - name: configure-cloud-init
       resource:
         action: create
-        successCondition: status.succeeded > 0
-        failureCondition: status.failed > 1
         manifest: |
           apiVersion: v1
           kind: Secret
@@ -40,6 +38,4 @@ spec:
     - name: launch-vm
       resource:
         action: create
-        successCondition: status.succeeded > 0
-        failureCondition: status.failed > 1
         manifest: {{ .Files.Get "data/vm-template.yaml" | toYaml | indent 8 }}
