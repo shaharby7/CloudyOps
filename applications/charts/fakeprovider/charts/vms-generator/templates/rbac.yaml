@@ -26,6 +26,12 @@ rules:
     resources:
       - pods
       - secrets
+  - apiGroups:
+      - "kubevirt.io"
+    verbs:
+      - "*"
+    resources:
+      - "*"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
