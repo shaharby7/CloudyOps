@@ -1,2 +1,13 @@
 server:
   extraArgs: [--auth-mode=server]
+
+controller:
+  workflowNamespaces:
+    - runspace
+
+workflow:
+  serviceAccount:
+    create: true
+    name: "runspace-workflow-sa"
+  rbac:
+    create: true
