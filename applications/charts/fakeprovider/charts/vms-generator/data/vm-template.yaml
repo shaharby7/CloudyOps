@@ -1,13 +1,13 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: pvc-testvm
+  name: "vm-{{workflow.parameters.machine_id}}"
   namespace: runspace
 spec:
   dataVolumeTemplates:
     - metadata:
         creationTimestamp: null
-        name: pvc-testvm-dv
+        name: "data-volume-{{workflow.parameters.machine_id}}"
       spec:
         pvc:
           accessModes:
@@ -15,7 +15,6 @@ spec:
           resources:
             requests:
               storage: 30Gi
-          # storageClassName: default
         source:
           registry:
             url: docker://quay.io/containerdisks/ubuntu:22.04
@@ -44,9 +43,9 @@ spec:
           pod: {} # Stock pod network
       volumes:
         - dataVolume:
-            name: pvc-testvm-dv
+            name: "data-volume-{{workflow.parameters.machine_id}}"
           name: containerdisk
         - cloudInitConfigDrive:
             secretRef:
-              name: kube-mast-user-data
+              name: "user-data-{{workflow.parameters.machine_id}}"
           name: cloudinitdisk

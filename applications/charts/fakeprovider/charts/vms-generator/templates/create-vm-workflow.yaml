@@ -5,22 +5,26 @@ metadata:
   namespace: runspace
 spec:
   serviceAccountName: operate-workflow-sa
+  arguments:
+    parameters:
+      - name: machine_id
+        value: "some-machine-id"
+      - name: user_data_b64
+        value: ""
   entrypoint: create-vm
   templates:
     - name: create-vm
+      arguments:
+        parameters:
+          - name: machine_id
+            value: "some-machine-id"
+          - name: user_data_b64
+            value: ""
       steps:
         - - name: configure-cloud-init
             template: configure-cloud-init
-            arguments:
-              parameters:
-                # - name: message
-                #   value: "hello1"
         - - name: launch-vm
             template: launch-vm
-            arguments:
-              parameters:
-                # - name: message
-                #   value: "hello2a"
 
     - name: configure-cloud-init
       resource:
@@ -29,11 +33,11 @@ spec:
           apiVersion: v1
           kind: Secret
           metadata:
-              name: kube-mast-user-data
+              name: "user-data-{{`{{workflow.parameters.machine_id}}`}}"
               namespace: runspace
           type: Opaque
           data:
-              userdata: {{ .Files.Get "data/kube-mast-user-data.yaml" | b64enc }}
+              userdata: "{{`{{workflow.parameters.user_data_b64}}`}}"
 
     - name: launch-vm
       resource:
