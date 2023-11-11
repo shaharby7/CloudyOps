@@ -24,3 +24,16 @@ spec:
               spec:
                 workflowTemplateRef:
                   name: create-vm-worflow-template
+                arguments:
+                  parameters:
+                    - name: machine_id
+                    - name: user_data_b64
+          parameters:
+            - src:
+                dependencyName: webhook-call
+                dataKey: body.mechine_id
+              dest: spec.arguments.parameters.0.value
+            - src:
+                dependencyName: webhook-call
+                dataKey: body.user_data_b64
+              dest: spec.arguments.parameters.1.value

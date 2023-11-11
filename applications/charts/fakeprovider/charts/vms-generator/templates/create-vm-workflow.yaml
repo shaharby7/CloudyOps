@@ -8,9 +8,7 @@ spec:
   arguments:
     parameters:
       - name: machine_id
-        value: "some-machine-id"
       - name: user_data_b64
-        value: ""
   entrypoint: create-vm
   templates:
     - name: create-vm
