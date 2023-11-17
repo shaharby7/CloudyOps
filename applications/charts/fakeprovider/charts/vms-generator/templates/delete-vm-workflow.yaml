@@ -35,8 +35,8 @@ spec:
       resource:
         action: delete
         manifest: |
-          apiVersion: v1
-          kind: Secret
+          apiVersion: kubevirt.io/v1
+          kind: VirtualMachine
           metadata:
               name: "vm-{{`{{workflow.parameters.machine_id}}`}}"
               namespace: runspace

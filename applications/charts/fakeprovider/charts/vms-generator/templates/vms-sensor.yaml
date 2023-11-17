@@ -1,18 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
-  name: create-vm-sensor
+  name: vms-sensor
   namespace: runspace
 spec:
   template:
     serviceAccountName: operate-workflow-sa
   dependencies:
-    - name: webhook-call
-      eventSourceName: vms-generator-webhook
+    - name: create-vm-call
+      eventSourceName: vms-webhook
       eventName: create-vm
+    - name: delete-vm-call
+      eventSourceName: vms-webhook
+      eventName: delete-vm
   triggers:
     - template:
         name: create-vm
+        conditions: "create-vm-call"
         argoWorkflow:
           operation: submit
           source:
@@ -30,15 +34,16 @@ spec:
                     - name: user_data_b64
           parameters:
             - src:
-                dependencyName: webhook-call
+                dependencyName: create-vm-call
                 dataKey: body.machine_id
               dest: spec.arguments.parameters.0.value
             - src:
-                dependencyName: webhook-call
+                dependencyName: create-vm-call
                 dataKey: body.user_data_b64
               dest: spec.arguments.parameters.1.value
     - template:
         name: delete-vm
+        conditions: "delete-vm-call"
         argoWorkflow:
           operation: submit
           source:
@@ -55,6 +60,6 @@ spec:
                     - name: machine_id
           parameters:
             - src:
-                dependencyName: webhook-call
+                dependencyName: delete-vm-call
                 dataKey: body.machine_id
               dest: spec.arguments.parameters.0.value

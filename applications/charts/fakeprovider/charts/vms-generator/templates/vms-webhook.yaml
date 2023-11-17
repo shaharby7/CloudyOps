@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: EventSource
 metadata:
-  name: vms-generator-webhook
+  name: vms-webhook
   namespace: runspace
 spec:
   service:
