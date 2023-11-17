@@ -1,4 +1,4 @@
-fakeprovider-api:
+api:
   replicaCount: 2
   image:
     repository: shaharshahar/fakeprovider

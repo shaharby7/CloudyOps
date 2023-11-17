@@ -1,4 +1,4 @@
-fakeprovider-api:
+api:
   replicaCount: 2
   image:
     repository: shaharshahar/fakeprovider
@@ -12,7 +12,13 @@ fakeprovider-api:
 
   env:
     - name: PORT
-      value: "3333"
+      value: 3333
+    - name: REDIS_DOMAIN
+      value: fakeprovider-redis-master.runspace.svc.cluster.local
+    - name: REDIS_PORT
+      value: 6379
+    - name: VMS_WEBHOOK_ADDRESS
+      value: http://vms-webhook-eventsource-svc.runspace.svc.cluster.local:12000
 
   serviceAccount:
     create: true
@@ -59,3 +65,13 @@ fakeprovider-api:
   tolerations: []
 
   affinity: {}
+
+redis:
+  enabled: true
+  master:
+    persistence:
+      enabled: false
+  replica:
+    replicaCount: 1
+    persistence:
+      enabled: false
