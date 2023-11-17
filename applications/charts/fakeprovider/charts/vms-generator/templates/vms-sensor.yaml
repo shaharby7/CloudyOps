@@ -31,9 +31,30 @@ spec:
           parameters:
             - src:
                 dependencyName: webhook-call
-                dataKey: body.mechine_id
+                dataKey: body.machine_id
               dest: spec.arguments.parameters.0.value
             - src:
                 dependencyName: webhook-call
                 dataKey: body.user_data_b64
               dest: spec.arguments.parameters.1.value
+    - template:
+        name: delete-vm
+        argoWorkflow:
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: delete-vm-
+              spec:
+                workflowTemplateRef:
+                  name: delete-vm-worflow-template
+                arguments:
+                  parameters:
+                    - name: machine_id
+          parameters:
+            - src:
+                dependencyName: webhook-call
+                dataKey: body.machine_id
+              dest: spec.arguments.parameters.0.value

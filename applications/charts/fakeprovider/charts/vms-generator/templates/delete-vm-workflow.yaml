@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: delete-vm-worflow-template
+  namespace: runspace
+spec:
+  serviceAccountName: operate-workflow-sa
+  arguments:
+    parameters:
+      - name: machine_id
+  entrypoint: delete-vm
+  templates:
+    - name: delete-vm
+      arguments:
+        parameters:
+          - name: machine_id
+            value: "some-machine-id"
+      steps:
+        - - name: delete-user-data
+            template: delete-user-data
+        - - name: delete-vm
+            template: delete-vm
+
+    - name: delete-user-data
+      resource:
+        action: delete
+        manifest: |
+          apiVersion: v1
+          kind: Secret
+          metadata:
+              name: "user-data-{{`{{workflow.parameters.machine_id}}`}}"
+              namespace: runspace
+
+    - name: delete-vm
+      resource:
+        action: delete
+        manifest: |
+          apiVersion: v1
+          kind: Secret
+          metadata:
+              name: "vm-{{`{{workflow.parameters.machine_id}}`}}"
+              namespace: runspace
