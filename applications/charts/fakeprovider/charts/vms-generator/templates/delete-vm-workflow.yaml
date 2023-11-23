@@ -8,9 +8,9 @@ spec:
   arguments:
     parameters:
       - name: machine_id
-  entrypoint: delete-vm
+  entrypoint: remove-vm-resources
   templates:
-    - name: delete-vm
+    - name: remove-vm-resources
       arguments:
         parameters:
           - name: machine_id
@@ -20,6 +20,8 @@ spec:
             template: delete-user-data
         - - name: delete-vm
             template: delete-vm
+          - name: delete-svc
+            template: delete-svc       
 
     - name: delete-user-data
       resource:
@@ -39,4 +41,14 @@ spec:
           kind: VirtualMachine
           metadata:
               name: "vm-{{`{{workflow.parameters.machine_id}}`}}"
+              namespace: runspace
+
+    - name: delete-svc
+      resource:
+        action: delete
+        manifest: |
+          apiVersion: v1
+          kind: Service
+          metadata:
+              name: "svc-{{`{{workflow.parameters.machine_id}}`}}"
               namespace: runspace
