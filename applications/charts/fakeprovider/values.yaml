@@ -18,6 +18,8 @@ api:
     create: true
     annotations: {}
     name: ""
+    roles:
+      - Viewer
 
   podAnnotations: {}
 
