@@ -3,14 +3,29 @@ entries:
   runspace-application:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-18T12:53:09.647375776+02:00"
+    created: "2023-11-25T21:28:08.47251852+02:00"
     dependencies:
-    - condition: appRedis.enabled
+    - condition: redis.enabled
       name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
       version: 18.4.0
     description: A Helm chart for Kubernetes
-    digest: ba349e14bbbf7891c0731d31fc8904dfac5172844c06ac187908583c0f8da8fd
+    digest: a3337d92e0a15ab72437b46fdd8f00a147444ed94fe19a3958f3a6c17aaf7ad7
+    name: runspace-application
+    type: application
+    urls:
+    - runspace-application-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-11-25T21:28:08.468455268+02:00"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 18.4.0
+    description: A Helm chart for Kubernetes
+    digest: e9a62e85d750e769e45e4eb6de447ecc8634ae4cfc1523ccdf25afa3d5e2036e
     name: runspace-application
     type: application
     urls:
@@ -18,7 +33,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-18T12:53:09.642462334+02:00"
+    created: "2023-11-25T21:28:08.463455766+02:00"
     dependencies:
     - alias: appRedis
       condition: appRedis.enabled
@@ -34,7 +49,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-18T12:53:09.637216149+02:00"
+    created: "2023-11-25T21:28:08.458282873+02:00"
     description: A Helm chart for Kubernetes
     digest: fc78434c51571bb3da256f20deb1df7e2e0a5f158702671a087ffc0b745b4a23
     name: runspace-application
@@ -42,4 +57,4 @@ entries:
     urls:
     - runspace-application-0.1.2.tgz
     version: 0.1.2
-generated: "2023-11-18T12:53:09.636599395+02:00"
+generated: "2023-11-25T21:28:08.450716143+02:00"
