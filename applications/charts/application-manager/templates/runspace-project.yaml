@@ -44,8 +44,6 @@ rules:
   - apiGroups:
       - ""
     verbs:
-      - "list"
-      - "get"
-      - "watch"
+      - "*"
     resources:
       - "*"
