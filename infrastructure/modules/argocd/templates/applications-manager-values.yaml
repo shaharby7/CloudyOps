@@ -1,3 +1,11 @@
+environment: ${environment}
+
+addons:
+  events:
+    enabled: true
+  workflows:
+    enabled: true
+
 sources:
   fakeprovider:
     repoURL: https://github.com/shaharby7/CloudyOps.git

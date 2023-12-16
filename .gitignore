@@ -1,4 +1,3 @@
 .terragrunt-cache
-*.lock.hcl
 tmp-*
 *.tfstate*

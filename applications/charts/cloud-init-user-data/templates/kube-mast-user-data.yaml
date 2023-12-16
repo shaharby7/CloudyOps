@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kube-mast-user-data
-  namespace: vmis
-type: Opaque
-data:
-  userdata: {{ .Files.Get "data/kube-mast-user-data.yaml" | b64enc }}

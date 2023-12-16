@@ -10,11 +10,17 @@ spec:
     repoURL: https://github.com/shaharby7/CloudyOps.git
     revision: main
     targetRevision: main
-    path: applications/charts/application-manager/charts/applications-list
+    path: applications/charts/application-manager/subchart/applications-list
     values:
+      environment: {{ .Values.environment }}
       sources: {{- .Values.sources | toYaml | nindent 7 }}
     helm:
       releaseName: application-manager
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argocd
+  {{- if eq "local" $.Values.environment}}
+  syncPolicy:
+    automated:
+      prune: true
+  {{- end }}

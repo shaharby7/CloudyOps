@@ -12,4 +12,9 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: runspace
+  {{- if eq "local" $.Values.environment}}
+  syncPolicy:
+    automated:
+      prune: true
+  {{- end }}
 {{- end}}

@@ -75,4 +75,9 @@ resource "helm_release" "application_manager" {
   chart      = "${var.charts_path}/application-manager"
   wait       = true
   version    = "0.1.9"
+  values = [
+    templatefile("${path.module}/templates/applications-manager-values.yaml", {
+      environment : var.environment
+    })
+  ]
 }

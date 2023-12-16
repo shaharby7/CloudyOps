@@ -41,4 +41,5 @@ inputs = {
   client_key             = dependency.cluster.outputs.client_key
   client_certificate     = dependency.cluster.outputs.client_certificate
   cluster_ca_certificate = dependency.cluster.outputs.cluster_ca_certificate
+
 }

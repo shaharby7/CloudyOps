@@ -19,6 +19,11 @@ variable "charts_path" {
   type = string
 }
 
+variable "environment" {
+  type = string
+  default = "local"
+}
+
 variable "argo_events" {
   type    = bool
   default = false
