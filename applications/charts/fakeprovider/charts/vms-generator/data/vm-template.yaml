@@ -1,5 +1,9 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
+Labels:
+  fakeprovider/controlled: true
+  fakeprovider/machine_id: "vm-{{workflow.parameters.machine_id}}"
+  fakeprovider/ip_allocation: "{{workflow.parameters.ip_allocation}}" 
 metadata:
   name: "vm-{{workflow.parameters.machine_id}}"
   namespace: runspace

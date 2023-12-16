@@ -9,6 +9,7 @@ spec:
     parameters:
       - name: machine_id
       - name: user_data_b64
+      - name: ip_allocation
   entrypoint: create-vm
   templates:
     - name: create-vm
@@ -17,6 +18,8 @@ spec:
           - name: machine_id
             value: "some-machine-id"
           - name: user_data_b64
+            value: ""
+          - name: ip_allocation
             value: ""
       steps:
         - - name: configure-cloud-init
@@ -62,5 +65,10 @@ spec:
                 protocol: TCP
                 port: 22
                 targetPort: 22
+              - name: kube
+                protocol: TCP
+                port: 6443
+                targetPort: 6443
+
 
       
