@@ -1,9 +1,5 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
-Labels:
-  fakeprovider/controlled: true
-  fakeprovider/machine_id: "vm-{{workflow.parameters.machine_id}}"
-  fakeprovider/ip_allocation: "{{workflow.parameters.ip_allocation}}" 
 metadata:
   name: "vm-{{workflow.parameters.machine_id}}"
   namespace: runspace
@@ -24,6 +20,11 @@ spec:
             url: docker://quay.io/containerdisks/ubuntu:22.04
   running: true
   template:
+    metadata:
+      labels:
+        fakeprovider/controlled: "true"
+        fakeprovider/machine_id: "vm-{{workflow.parameters.machine_id}}"
+        fakeprovider/ip_allocation: "{{workflow.parameters.ip_allocation_id}}"
     spec:
       domain:
         devices:

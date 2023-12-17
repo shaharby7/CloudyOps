@@ -9,7 +9,7 @@ spec:
     parameters:
       - name: machine_id
       - name: user_data_b64
-      - name: ip_allocation
+      - name: ip_allocation_id
   entrypoint: create-vm
   templates:
     - name: create-vm
@@ -19,7 +19,7 @@ spec:
             value: "some-machine-id"
           - name: user_data_b64
             value: ""
-          - name: ip_allocation
+          - name: ip_allocation_id
             value: ""
       steps:
         - - name: configure-cloud-init

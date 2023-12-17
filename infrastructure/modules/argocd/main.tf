@@ -74,7 +74,7 @@ resource "helm_release" "application_manager" {
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   chart      = "${var.charts_path}/application-manager"
   wait       = true
-  version    = "0.1.9"
+  version    = "0.1.10"
   values = [
     templatefile("${path.module}/templates/applications-manager-values.yaml", {
       environment : var.environment

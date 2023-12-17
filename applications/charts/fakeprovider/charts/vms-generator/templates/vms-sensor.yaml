@@ -32,7 +32,7 @@ spec:
                   parameters:
                     - name: machine_id
                     - name: user_data_b64
-                    - name: ip_allocation
+                    - name: ip_allocation_id
           parameters:
             - src:
                 dependencyName: create-vm-call
@@ -44,7 +44,7 @@ spec:
               dest: spec.arguments.parameters.1.value
             - src:
                 dependencyName: create-vm-call
-                dataKey: body.ip_allocation
+                dataKey: body.ip_allocation_id
               dest: spec.arguments.parameters.2.value
     - template:
         name: delete-vm
