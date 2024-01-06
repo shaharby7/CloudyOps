@@ -41,7 +41,8 @@ spec:
           rng: {}
         resources:
           requests:
-            memory: 1024M
+            memory: 2Gi
+            cpu: 2
       terminationGracePeriodSeconds: 0
       networks:
         - name: default
